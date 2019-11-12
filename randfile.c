@@ -5,12 +5,14 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-int a = 0;
-
 unsigned int randNum(){
-    //int entropy = open("/dev/random", O_RDONLY);
-    a++;
-    return a;
+    int entropy = open("/dev/random", O_RDONLY);
+    unsigned int final;
+    
+    read(entropy, &final, sizeof(int));
+    close(entropy);
+
+    return final;
 }
 
 int main(){
